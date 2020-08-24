@@ -20,13 +20,13 @@ extension ReflectionTests {
         ("testMeasureStringReflectingStruct", testMeasureStringReflectingStruct),
         ("testMeasureTypeNameClass", testMeasureTypeNameClass),
         ("testMeasureTypeNameEnum", testMeasureTypeNameEnum),
-        ("testMeasureTypeNameStruct", testMeasureTypeNameStruct)
+        ("testMeasureTypeNameStruct", testMeasureTypeNameStruct),
     ]
 }
 
 public func __allTests() -> [XCTestCaseEntry] {
     return [
-        testCase(ReflectionTests.__allTests__ReflectionTests)
+        testCase(ReflectionTests.__allTests__ReflectionTests),
     ]
 }
 #endif

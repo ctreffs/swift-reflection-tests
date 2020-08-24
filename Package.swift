@@ -6,6 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Reflection",
     targets: [
+        .target(name: "Reflection"),
         .testTarget(name: "ReflectionTests")
     ]
 )
