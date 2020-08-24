@@ -1,5 +1,4 @@
 import XCTest
-import class Foundation.Bundle
 
 let kMaxIterations: Int = 1_000_000
 
@@ -73,6 +72,54 @@ final class ReflectionTests: XCTestCase {
         measure {
             for _ in 0..<kMaxIterations {
                 _ = Mirror(reflecting: MyEnum.self).description
+            }
+        }
+    }
+
+    func testMeasureTypeNameClass() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = _typeName(MyClass.self)
+            }
+        }
+    }
+
+    func testMeasureTypeNameStruct() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = _typeName(MyStruct.self)
+            }
+        }
+    }
+
+    func testMeasureTypeNameEnum() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = _typeName(MyEnum.self)
+            }
+        }
+    }
+
+    func testMeasureStringIterpolationClass() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = "\(MyClass.self)"
+            }
+        }
+    }
+
+    func testMeasureStringIterpolationStruct() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = "\(MyStruct.self)"
+            }
+        }
+    }
+
+    func testMeasureStringIterpolationEnum() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = "\(MyEnum.self)"
             }
         }
     }
