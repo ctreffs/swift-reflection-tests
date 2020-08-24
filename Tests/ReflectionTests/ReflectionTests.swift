@@ -1,47 +1,87 @@
 import XCTest
 import class Foundation.Bundle
 
+let kMaxIterations: Int = 1_000_000
+
 final class ReflectionTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
 
-        // Some of the APIs that we use below are available in macOS 10.13 and above.
-        guard #available(macOS 10.13, *) else {
-            return
+    func testMeasureStringReflectingClass() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = String(reflecting: MyClass.self)
+            }
         }
-
-        let fooBinary = productsDirectory.appendingPathComponent("Reflection")
-
-        let process = Process()
-        process.executableURL = fooBinary
-
-        let pipe = Pipe()
-        process.standardOutput = pipe
-
-        try process.run()
-        process.waitUntilExit()
-
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8)
-
-        XCTAssertEqual(output, "Hello, world!\n")
     }
 
-    /// Returns path to the built products directory.
-    var productsDirectory: URL {
-      #if os(macOS)
-        for bundle in Bundle.allBundles where bundle.bundlePath.hasSuffix(".xctest") {
-            return bundle.bundleURL.deletingLastPathComponent()
+    func testMeasureStringReflectingStruct() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = String(reflecting: MyStruct.self)
+            }
         }
-        fatalError("couldn't find the products directory")
-      #else
-        return Bundle.main.bundleURL
-      #endif
     }
 
-    static var allTests = [
-        ("testExample", testExample)
-    ]
+    func testMeasureStringReflectingEnum() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = String(reflecting: MyEnum.self)
+            }
+        }
+    }
+
+    func testMeasureStringDescribingClass() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = String(describing: MyClass.self)
+            }
+        }
+    }
+
+    func testMeasureStringDescribingStruct() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = String(describing: MyStruct.self)
+            }
+        }
+    }
+
+    func testMeasureStringDescribingEnum() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = String(describing: MyEnum.self)
+            }
+        }
+    }
+
+    func testMeasureMirrorReflectingDescriptionClass() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = Mirror(reflecting: MyClass.self).description
+            }
+        }
+    }
+
+    func testMeasureMirrorReflectingDescriptionStruct() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = Mirror(reflecting: MyStruct.self).description
+            }
+        }
+    }
+
+    func testMeasureMirrorReflectingDescriptionEnum() {
+        measure {
+            for _ in 0..<kMaxIterations {
+                _ = Mirror(reflecting: MyEnum.self).description
+            }
+        }
+    }
+}
+
+final class MyClass { }
+
+struct MyStruct { }
+
+enum MyEnum {
+    case aCase
 }
